@@ -51,7 +51,8 @@ import {products} from '../data/products.js';
                         Added
                     </div>
             
-                    <button class="add-to-cart-button button-primary">
+                    <button class="add-to-cart-button button-primary 
+                    js-add-to-cart-button" data-button-id="${product.id}">
                         Add to Cart
                     </button>
                     </div>
@@ -59,4 +60,15 @@ import {products} from '../data/products.js';
         `;
 
     });
+    
+     document.querySelectorAll('.js-add-to-cart-button')
+    .forEach((button)=>{
+        button.addEventListener("click",()=>{
+            
+        });
+    });
+
+    function addToCart(product) {
+
+    }
     
