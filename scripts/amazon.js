@@ -2,7 +2,7 @@
 import {addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
-
+document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('totalCart') || 0;
 
     products .forEach((product)=>{
 
@@ -73,4 +73,5 @@ import {products} from '../data/products.js';
         });
     });
   
+
     

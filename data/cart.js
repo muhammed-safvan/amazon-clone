@@ -14,25 +14,27 @@
         image: "images/products/intermediate-composite-basketball.jpg",
         name: "Intermediate Size Basketball",
         priceCents: 2095,
-        quantity:2
+        quantity:1
     },{
         id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
         image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
         name: "Adults Plain Cotton T-Shirt - 2 Pack",
         priceCents: 799,
-        quantity:3
+        quantity:1
     }
 ];
 
 
 
 export function addToCart(itemId) {
+    let totalCart=0;
     let productExist=false;
-    cart.forEach((product)=>{  
-        
+    cart.forEach((product)=>{
+        totalCart+=product.quantity;
         if (itemId===product.id){
             productExist=true;
             product.quantity++;
+
 
             console.log(`product exist ${product.quantity}`);
             
@@ -55,5 +57,7 @@ export function addToCart(itemId) {
         
     }
     localStorage.setItem('cartItems',JSON.stringify(cart));
-
-    };
+    document.querySelector('.js-cart-quantity').innerText=totalCart;
+    localStorage.setItem('totalCart',JSON.stringify(totalCart));
+    
+}
