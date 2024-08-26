@@ -52,6 +52,6 @@ export function addToCart(itemId) {
         });
         
     }
-    localStorage.setItem('cartItem',JSON.stringify(cart));
+    localStorage.setItem('cartItems',JSON.stringify(cart));
 
     };

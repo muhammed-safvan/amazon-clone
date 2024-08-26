@@ -1,6 +1,6 @@
 //import { cart } from "../data/cart.js";
 
-const cart=JSON.parse(localStorage.getItem('cartItem'));
+const cart=JSON.parse(localStorage.getItem('cartItems'));
 
 
 let html='';
