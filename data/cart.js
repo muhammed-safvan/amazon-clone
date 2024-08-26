@@ -1,4 +1,8 @@
- const cart=[
+ import { products } from "./products.js";
+ 
+ export let cart=JSON.parse(localStorage.getItem('cartItems')) ||
+ 
+ [
     {
         id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
         image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -19,3 +23,35 @@
         quantity:3
     }
 ];
+
+
+
+export function addToCart(itemId) {
+    let productExist=false;
+    cart.forEach((product)=>{  
+        
+        if (itemId===product.id){
+            productExist=true;
+            console.log('productExist');
+            
+        }
+           
+    });
+    if(!productExist){
+        products.forEach((product)=>{
+            if(product.id===itemId){
+                console.log('product not exist');
+                cart.push({
+                    id: product.id,
+                    image: product.image,
+                    name: product.name,
+                    priceCents: product.priceCents,
+                    quantity:1
+                    });               
+                }
+        });
+        
+    }
+    localStorage.setItem('cartItem',JSON.stringify(cart));
+
+    };

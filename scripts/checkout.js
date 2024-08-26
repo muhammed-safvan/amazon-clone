@@ -1,6 +1,6 @@
-//import { cart } from "../data/cart";
+//import { cart } from "../data/cart.js";
 
-
+const cart=JSON.parse(localStorage.getItem('cartItem'));
 
 
 let html='';
@@ -21,7 +21,7 @@ cart.forEach((product)=>{
                   ${product.name}
                 </div>
                 <div class="product-price">
-                  $${product.priceCe0}
+                  $${product.priceCents}
                 </div>
                 <div class="product-quantity">
                   <span>
