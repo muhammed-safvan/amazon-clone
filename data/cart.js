@@ -32,7 +32,9 @@ export function addToCart(itemId) {
         
         if (itemId===product.id){
             productExist=true;
-            console.log('productExist');
+            product.quantity++;
+
+            console.log(`product exist ${product.quantity}`);
             
         }
            

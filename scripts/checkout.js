@@ -1,11 +1,11 @@
 //import { cart } from "../data/cart.js";
-
+import { convertMoney } from "./utils/money.js";
 const cart=JSON.parse(localStorage.getItem('cartItems'));
-
 
 let html='';
 cart.forEach((product)=>{
    const cartHTML=
+ 
 `
   <div class="cart-item-container">
             <div class="delivery-date">
@@ -21,7 +21,7 @@ cart.forEach((product)=>{
                   ${product.name}
                 </div>
                 <div class="product-price">
-                  $${product.priceCents}
+                  $${convertMoney(product.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
