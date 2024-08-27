@@ -1,5 +1,8 @@
 //import { cart } from "../data/cart.js";
 import { convertMoney } from "./utils/money.js";
+
+
+console.log(JSON.parse(localStorage.getItem('cartItems')));
 const cart=JSON.parse(localStorage.getItem('cartItems'));
 
 let html='';

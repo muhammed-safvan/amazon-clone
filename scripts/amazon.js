@@ -1,6 +1,7 @@
 
 import {addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import { convertMoney } from './utils/money.js';
 
 document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('totalCart') || 0;
 
@@ -28,7 +29,7 @@ document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('tota
                     </div>
             
                     <div class="product-price">
-                        $${product.priceCents/100}
+                        $${convertMoney(product.priceCents)}
                     </div>
             
                     <div class="product-quantity-container">
@@ -73,5 +74,5 @@ document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('tota
         });
     });
   
-
+    document.querySelector('.js-cart-quantity').innerText=addToCart();
     

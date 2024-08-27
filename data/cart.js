@@ -1,7 +1,8 @@
  import { products } from "./products.js";
  
- export let cart=JSON.parse(localStorage.getItem('cartItems')) ||
- 
+
+let cart=JSON.parse(localStorage.getItem('cartItems')) 
+||
  [
     {
         id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -24,23 +25,24 @@
     }
 ];
 
-
+let totalCart=0;
 
 export function addToCart(itemId) {
-    let totalCart=0;
+
+    totalCart=0;
     let productExist=false;
     cart.forEach((product)=>{
-        totalCart+=product.quantity;
+
         if (itemId===product.id){
             productExist=true;
             product.quantity++;
-
-
-            console.log(`product exist ${product.quantity}`);
-            
+            console.log(`product exist ${product.quantity}`);           
         }
-           
+
+        totalCart+=product.quantity;
     });
+
+    // only executes if product does not exist in cart
     if(!productExist){
         products.forEach((product)=>{
             if(product.id===itemId){
@@ -51,13 +53,25 @@ export function addToCart(itemId) {
                     name: product.name,
                     priceCents: product.priceCents,
                     quantity:1
-                    });               
+                    });    
                 }
         });
         
     }
-    localStorage.setItem('cartItems',JSON.stringify(cart));
+    updateCart('totalCart');
+    updateCart('cartItems');
     document.querySelector('.js-cart-quantity').innerText=totalCart;
-    localStorage.setItem('totalCart',JSON.stringify(totalCart));
     
+    return totalCart;
+    
+}
+
+export function updateCart(updateType){
+    switch(updateType){
+        case 'cartItems' :localStorage.setItem('cartItems',JSON.stringify(cart))
+        break;
+        case 'totalCart':localStorage.setItem('totalCart',JSON.stringify(totalCart))
+        break;   
+        
+    }
 }
