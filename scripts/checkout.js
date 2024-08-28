@@ -1,5 +1,6 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { convertMoney } from "./utils/money.js";
+import { addToCart } from '../data/cart.js';
 
 
 let cart=[];
@@ -109,6 +110,13 @@ document.querySelector('.js-order-summary')
   button.addEventListener("click" , removeFromCart); 
 });
 
+//updating innerText of total cart number
+let totalCart = 0;
+cart.forEach((product)=>{
+  totalCart += product.quantity;
+});
+document.querySelector('.js-return-to-home-link').innerText=totalCart;
+
 }//end of generateCartHtml
 
 function dateString (days){
@@ -146,3 +154,4 @@ localStorage.setItem('cartItems', JSON.stringify(cart));
 updateCartHtml();
 
 }
+
