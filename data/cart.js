@@ -32,13 +32,11 @@ export function addToCart(itemId) {
     totalCart=0;
     let productExist=false;
     cart.forEach((product)=>{
-
         if (itemId===product.id){
             productExist=true;
             product.quantity++;
             console.log(`product exist ${product.quantity}`);           
         }
-
         totalCart+=product.quantity;
     });
 
@@ -47,26 +45,29 @@ export function addToCart(itemId) {
         products.forEach((product)=>{
             if(product.id===itemId){
                 console.log('product not exist');
+                totalCart++;
                 cart.push({
                     id: product.id,
                     image: product.image,
                     name: product.name,
                     priceCents: product.priceCents,
                     quantity:1
-                    });    
+                    });
+
                 }
         });
-        
     }
+    
     updateCart('totalCart');
     updateCart('cartItems');
+  
     document.querySelector('.js-cart-quantity').innerText=totalCart;
     
     return totalCart;
     
 }
 
-export function updateCart(updateType){
+function updateCart(updateType){
     switch(updateType){
         case 'cartItems' :localStorage.setItem('cartItems',JSON.stringify(cart))
         break;
@@ -75,3 +76,6 @@ export function updateCart(updateType){
         
     }
 }
+
+
+
