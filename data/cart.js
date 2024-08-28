@@ -1,7 +1,7 @@
  import { products } from "./products.js";
  
-
-let cart=JSON.parse(localStorage.getItem('cartItems')) 
+//declaring cart array and
+export let cart=JSON.parse(localStorage.getItem('cartItems')) 
 ||
  [
     {
@@ -45,7 +45,6 @@ export function addToCart(itemId) {
         products.forEach((product)=>{
             if(product.id===itemId){
                 console.log('product not exist');
-                totalCart++;
                 cart.push({
                     id: product.id,
                     image: product.image,
@@ -53,7 +52,7 @@ export function addToCart(itemId) {
                     priceCents: product.priceCents,
                     quantity:1
                     });
-
+                    totalCart++;
                 }
         });
     }
@@ -77,5 +76,16 @@ function updateCart(updateType){
     }
 }
 
+export function removeFromCart(productId){
+    const newCart = [];
+    cart.forEach((cartItem)=>{
+        if (cartItem.id !== productId){
+            newCart.push(cartItem);
+        }
+    });
+    cart = newCart;
 
+    document.querySelector(`.js-cart-item-container-${productId}`).remove();
+    updateCart('cartItems');
+}
 

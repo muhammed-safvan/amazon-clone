@@ -1,5 +1,4 @@
 //use dayjs to get the time and date 
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import { convertMoney } from './utils/money.js';

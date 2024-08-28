@@ -1,26 +1,17 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { convertMoney } from "./utils/money.js";
-import { addToCart } from '../data/cart.js';
+import { cart ,removeFromCart } from '../data/cart.js';
 
 
-let cart=[];
-updateCartHtml();
+  
 
-function updateCartHtml(){
-  const storedCart = localStorage.getItem('cartItems');
-  cart = storedCart ?  JSON.parse(storedCart):[];
-  generateCartHtml();
 
-}
-
-//this function generates html of the cart 
-function generateCartHtml(){
 let html='';
 cart.forEach((product)=>{
    const cartHTML=
  
 `
-  <div class="cart-item-container">
+  <div class="cart-item-container js-cart-item-container-${product.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -57,7 +48,7 @@ cart.forEach((product)=>{
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${product.id}">
                   <div>
                     <div class="delivery-option-date">
                       ${dateString(7)}
@@ -70,7 +61,7 @@ cart.forEach((product)=>{
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${product.id}">
                   <div>
                     <div class="delivery-option-date">
                       ${dateString(3)}
@@ -83,7 +74,7 @@ cart.forEach((product)=>{
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${product.id}">
                   <div>
                     <div class="delivery-option-date">
                       ${dateString(1)}
@@ -105,19 +96,14 @@ html+=cartHTML;
 document.querySelector('.js-order-summary')
   .innerHTML=html;
 
-  const buttons = document.querySelectorAll('.js-delete-button');
-  buttons.forEach((button)=>{
-  button.addEventListener("click" , removeFromCart); 
-});
 
 //updating innerText of total cart number
 let totalCart = 0;
 cart.forEach((product)=>{
   totalCart += product.quantity;
 });
-document.querySelector('.js-return-to-home-link').innerText=totalCart;
+document.querySelector('.js-return-to-home-link').innerText=`${totalCart} items`;
 
-}//end of generateCartHtml
 
 function dateString (days){
   const today=dayjs();
@@ -134,24 +120,10 @@ function dateString (days){
 
 }
 
-//let buttonId ='';
-
-function removeFromCart(event){
-  const button = event.currentTarget;
-  let buttonId = button.dataset.buttonId;
-let newCart=[];
-cart.forEach((product)=>{
-
-  if(product.id !== buttonId){
-    newCart.push(product);
-  }
-
+document.querySelectorAll('.js-delete-button')
+.forEach((link)=>{
+  link.addEventListener("click" ,()=>{
+    let productId = link.dataset.buttonId;
+    removeFromCart(productId);
+}); 
 });
-
-cart=newCart;
-console.log(cart);
-localStorage.setItem('cartItems', JSON.stringify(cart));
-updateCartHtml();
-
-}
-
