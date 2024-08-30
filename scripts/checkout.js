@@ -4,17 +4,32 @@ import { cart ,removeFromCart } from '../data/cart.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
 
 
-  
-
 
 let html='';
 cart.forEach((product)=>{
-   const cartHTML=
+
+  let deliveryOptionId = product.deliveryOptionId;
+  let deliveryOption;
+  deliveryOptions.forEach((option)=>{
+
+    if(deliveryOptionId === option.id){
+      deliveryOption = option;
+    }
+
+  });
+
+  const today = dayjs();
+  const deliveryDate = today.add(
+    `${deliveryOption.deliveryDays}`, 'days' 
+  );
+  const dateString = deliveryDate.format('dddd, MMMM D');
+
+  const cartHTML=
  
 `
   <div class="cart-item-container js-cart-item-container-${product.id}">
             <div class="delivery-date">
-              Delivery date: Tuesday, June 21
+              Delivery date: ${dateString}
             </div>
 
             <div class="cart-item-details-grid">
@@ -52,6 +67,7 @@ cart.forEach((product)=>{
           </div>
 
 `;
+
 html+=cartHTML;
 
 });
@@ -111,20 +127,20 @@ cart.forEach((product)=>{
 document.querySelector('.js-return-to-home-link').innerText=`${totalCart} items`;
 
 
-function dateString (days){
-  const today=dayjs();
-  let deliveryDate;
-  switch (days){
-    case 7: deliveryDate=today.add(7 , 'days')
-    break;
-    case 3: deliveryDate=today.add(3 , 'days')
-    break;
-    case 1: deliveryDate=today.add(1 , 'days');
-  }
-  const stringDate=deliveryDate.format('dddd, MMMM D');
-  return stringDate;
-
-}
+//function dateString (days){
+//  const today=dayjs();
+//  let deliveryDate;
+//  switch (days){
+//    case 7: deliveryDate=today.add(7 , 'days')
+//    break;
+//    case 3: deliveryDate=today.add(3 , 'days')
+//    break;
+//    case 1: deliveryDate=today.add(1 , 'days');
+//  }
+//  const stringDate=deliveryDate.format('dddd, MMMM D');
+//  return stringDate;
+//
+//}
 
 document.querySelectorAll('.js-delete-button')
 .forEach((link)=>{
