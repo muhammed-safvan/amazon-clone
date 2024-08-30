@@ -93,3 +93,18 @@ export function removeFromCart(productId){
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
     updateCart('cartItems');
 }
+
+export function updateDeliveryOption(productId,deliveryOptionId){
+
+    let matchingProduct;
+
+    cart.forEach((cartItem)=>{
+        if(cartItem.id === productId){
+            matchingProduct = cartItem;
+        }
+    });
+
+    matchingProduct.deliveryOptionId = deliveryOptionId;
+    updateCart('cartItems');
+
+}
