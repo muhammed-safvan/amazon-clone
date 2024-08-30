@@ -59,7 +59,7 @@ html+=cartHTML;
 document.querySelector('.js-order-summary')
   .innerHTML=html;
 
-  
+
 function deliveryOptionsHTML(product){
 
   let html = '';
@@ -76,10 +76,12 @@ function deliveryOptionsHTML(product){
 
     const dateString = deliveryDate.format('dddd, MMMM D');
 
+    const isChecked = deliveryOption.id === product.deliveryOptionId;
     html += 
     `
         <div class="delivery-option">
-          <input type="radio" checked
+          <input type="radio"
+            ${isChecked ? 'checked' : ''}
             class="delivery-option-input"
             name="delivery-option-${product.id}">
           <div>
