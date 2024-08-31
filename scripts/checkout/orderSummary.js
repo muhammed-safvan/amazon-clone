@@ -145,6 +145,7 @@ export function renderOrderSummary(){
       link.addEventListener("click" ,()=>{
         let productId = link.dataset.buttonId;
         removeFromCart(productId);
+        renderPaymentSummary();
     }); 
     });
 
@@ -154,6 +155,7 @@ export function renderOrderSummary(){
         const {productId,deliveryOptionId} = element.dataset;
         updateDeliveryOption(productId,deliveryOptionId);
         renderOrderSummary();
+        renderPaymentSummary();
       });
     });
 }
