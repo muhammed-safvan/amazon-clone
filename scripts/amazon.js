@@ -71,6 +71,8 @@ document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('tota
         let itemId=button.dataset.buttonId;
         button.addEventListener("click",()=>{
             addToCart(itemId);
+            document.querySelector('.js-cart-quantity').innerText=addToCart();
+
         });
     });
   
