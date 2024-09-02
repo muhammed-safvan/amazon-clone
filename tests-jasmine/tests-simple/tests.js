@@ -1,4 +1,4 @@
-import { convertMoney } from "../scripts/utils/money";
+import { convertMoney } from "../scripts/utils/money.js";
 
 console.log('test suit : convertMoney');
 
