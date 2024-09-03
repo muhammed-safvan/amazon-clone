@@ -3,6 +3,7 @@ import { convertMoney } from "../utils/money.js";
 import { cart ,removeFromCart,updateDeliveryOption } from '../../data/cart.js';
 import { deliveryOptions,getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
+import { getProduct } from '../../data/products.js';
 
 
 export function renderOrderSummary(){
@@ -13,6 +14,7 @@ export function renderOrderSummary(){
 
     let deliveryOptionId = product.deliveryOptionId;
     const deliveryOption = getDeliveryOption(deliveryOptionId);
+    const matchingProduct = getProduct(product.id);
     
 
     const today = dayjs();
@@ -26,24 +28,24 @@ export function renderOrderSummary(){
   `
     <div class="cart-item-container 
               js-cart-item-container
-              js-cart-item-container-${product.id}">
+              js-cart-item-container-${matchingProduct.id}">
               <div class="delivery-date">
                 Delivery date: ${dateString}
               </div>
 
               <div class="cart-item-details-grid">
                 <img class="product-image"
-                  src=${product.image}>
+                  src=${matchingProduct.image}>
 
                 <div class="cart-item-details">
                   <div class="product-name">
-                    ${product.name}
+                    ${matchingProduct.name}
                   </div>
                   <div class="product-price">
-                    $${convertMoney(product.priceCents)}
+                    ${matchingProduct.getPrice()}
                   </div>
                   <div class="product-quantity
-                    js-product-quantity-${product.id}">
+                    js-product-quantity-${matchingProduct.id}">
                     <span>
                       Quantity: <span class="quantity-label">${product.quantity}</span>
                     </span>
@@ -52,7 +54,7 @@ export function renderOrderSummary(){
                     </span>
                     <span class="delete-quantity-link link-primary
                       js-delete-button
-                      js-delete-button-${product.id}" data-button-id='${product.id}'>
+                      js-delete-button-${matchingProduct.id}" data-button-id='${product.id}'>
                       Delete
                     </span>
                   </div>
