@@ -13,6 +13,82 @@ export function getProduct(productId){
 
   return matchingProduct;
 }
+/*
+const object1 = {
+  a : 4,
+  b : 5,
+  c : ()=>{     //using arrow function
+    const object2 = {
+      d : 8,
+      e : 10,
+      f : ()=>{      //using arrow function
+        console.log(this);
+      }
+    };
+    object2.f();
+  }
+};object1.c();//prints undefined
+*/
+
+/*
+const object1 = {
+  a : 4,
+  b : 5,
+  c : function (){   //used regular function instead of arrow function
+    const object2 = {
+      d : 8,
+      e : 10,
+      f : ()=>{
+        console.log(this);
+      }
+    };
+    object2.f();
+  }
+};object1.c();//prints object 1
+*/
+
+/*
+const object1 = {
+  a : 4,
+  b : 5,
+  c : function (){
+    const object2 = {
+      d : 8,
+      e : 10,
+      f : function (){    //used regular function instead of using an arrow function
+        console.log(this);
+      }
+    };
+    object2.f();
+  }
+};object1.c();//prints object2
+*/
+
+/*
+ function PrintName(name){
+  this.name = name;
+ }
+ const p = new PrintName('john');
+ console.log(p.name);//prints john.
+*/
+
+/*
+function testThis(){
+  console.log(this);
+}
+testThis();//prints undefined
+
+function testThis2(){
+  console.log(this);
+}
+testThis2.call();//prints undefined.This 'testThis2.call();' works same as 'testThis();',but have more feature .
+
+
+function testThis3(){
+  console.log(this);
+}
+testThis3.call('Hello');//prints Hello .Because in  .call() method we can assign value to 'this' as in the parameter.
+*/
 
 
 class Product{
