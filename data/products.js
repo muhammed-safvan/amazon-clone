@@ -1,6 +1,7 @@
 import { convertMoney } from "../scripts/utils/money.js";
 
 export function getProduct(productId){
+  
   let matchingProduct;
   products.forEach((product) => {
 
@@ -9,6 +10,7 @@ export function getProduct(productId){
     }
 
   });
+
   return matchingProduct;
 }
 
@@ -36,6 +38,28 @@ class Product{
   getStarsImage(){
     return `images/ratings/rating-${this.rating.stars*10}.png`;
   }
+
+  addExtraInfoHTML(){
+    return '';
+  }
+}
+
+
+class Clothing extends Product{
+  sizeChartLink;
+  constructor (prouctDetails){
+    super(prouctDetails);
+    this.sizeChartLink = prouctDetails.sizeChartLink;
+  }
+
+  addExtraInfoHTML(){
+    //super.addExtraInfoHTML();
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">
+      Size Chart
+    </a>`;
+  }
+
 }
 
 
@@ -701,6 +725,9 @@ export  const products = [
   }
 ].map((productDetails) => {
 
+  if (productDetails.type === "clothing"){
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 
 });

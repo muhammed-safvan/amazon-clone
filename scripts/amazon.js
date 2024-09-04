@@ -46,7 +46,9 @@ document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('tota
                         <option value="10">10</option>
                         </select>
                     </div>
-            
+
+                    ${product.addExtraInfoHTML()}
+
                     <div class="product-spacer"></div>
             
                     <div class="added-to-cart">
