@@ -1,10 +1,11 @@
 //use dayjs to get the time and date 
 import {addToCart} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {products,loadProducts} from '../data/products.js';
 import { convertMoney } from './utils/money.js';
 
 document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('totalCart') || 0;
-
+loadProducts(loadPage);
+function loadPage(){
     products .forEach((product)=>{
 
 
@@ -79,6 +80,6 @@ document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('tota
     });
   
     document.querySelector('.js-cart-quantity').innerText=addToCart();
-
+}
 
     
