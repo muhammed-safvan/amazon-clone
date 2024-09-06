@@ -112,3 +112,24 @@ export function updateDeliveryOption(productId,deliveryOptionId){
     updateCart('cartItems');
 
 }
+
+export function loadCartFetch(){
+
+    fetch('https://supersimplebackend.dev/cart')
+    .then((details) => {
+        console.log(details);
+    });
+
+}
+
+
+
+export function loadcart (fun){
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load',() => {     
+      fun();
+    });
+    xhr.open('GET','https://supersimplebackend.dev/cart');
+    xhr.send();
+    
+  }
