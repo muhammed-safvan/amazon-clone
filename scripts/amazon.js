@@ -1,6 +1,6 @@
 //use dayjs to get the time and date 
 import {addToCart} from '../data/cart.js';
-import {products,loadProducts,loadProductsFetch} from '../data/products.js';
+import {products,loadProductsFetch} from '../data/products.js';
 import { convertMoney } from './utils/money.js';
 
 document.querySelector('.js-cart-quantity').innerText=localStorage.getItem('totalCart') || 0;

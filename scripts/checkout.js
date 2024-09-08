@@ -1,4 +1,4 @@
-import { loadProducts,loadProductsFetch } from "../data/products.js";
+import { loadProductsFetch } from "../data/products.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadcart,loadCartFetch } from "../data/cart.js";
@@ -33,6 +33,15 @@ loadProducts(() => {
 });
 */
 
+async function loadPage() {
+    await loadProductsFetch();
+    await loadCartFetch();
+
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+loadPage();
+/*
 Promise.all([
     loadProductsFetch(),
     loadCartFetch()
@@ -41,7 +50,7 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 });
-
+*/
 
 /*
 new Promise((resolve) => {
