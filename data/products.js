@@ -174,7 +174,7 @@ export function loadProductsFetch (){
       }
       return new Product(productDetails);
     });
-    console.log(products);
+    console.log('products loaded using loadProductsFetch');
   });
   
   return promise;
