@@ -37,13 +37,18 @@ async function loadPage() {
 
     try{
         //throw 'error1';
-        await loadProductsFetch();
-        await new Promise((resolve,reject) => {
+        const loadCartPromise = await new Promise((resolve,reject) => {
             loadCart(() => {
                 //reject('error2');
                 resolve();
             });
         });
+        await Promise.all([
+            loadProductsFetch(),
+            loadCartPromise
+         ])
+         
+        
     } catch(error){
         console.log('Unexpected error.please try again later' );
     }

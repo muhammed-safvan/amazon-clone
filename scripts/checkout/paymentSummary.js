@@ -2,6 +2,7 @@ import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { convertMoney } from "../utils/money.js";
+import { getOrder} from "../orders/renderOrders.js";
 
 
 export function renderPaymentSummary(){
@@ -65,11 +66,17 @@ export function renderPaymentSummary(){
             </div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary
+          js-place-order">
             Place your order
           </button>
     
     `
-document.querySelector('.js-payment-summary')
+  document.querySelector('.js-payment-summary')
     .innerHTML = paymentSummaryHTML;
+    document.querySelector('.js-place-order')
+      .addEventListener('click',() => {
+        getOrder(cart)
+        window.location.href = "orders.html";
+      });
 }

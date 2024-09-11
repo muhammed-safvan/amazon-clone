@@ -1,5 +1,8 @@
 import { convertMoney } from "../scripts/utils/money.js";
 
+
+export let products = [];
+
 export function getProduct(productId){
   
   let matchingProduct;
@@ -138,8 +141,6 @@ class Clothing extends Product{
 
 }
 
-
-export let products = [];
 
 /*
 export function loadProducts (fun){
