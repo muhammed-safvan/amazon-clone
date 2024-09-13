@@ -1,7 +1,10 @@
 import { cart,addToCart,loadFromStorage } from "../../data/cart.js";
+import { loadProductsFetch } from "../../data/products.js";
 
 describe('test suit : addToCart',()=>{
-
+    beforeAll(async () => {
+        await loadProductsFetch();
+    });
     it('add Existing products to cart' , ()=>{
         spyOn(localStorage,'setItem');
         spyOn(localStorage,'getItem').and.callFake(()=>{

@@ -1,5 +1,5 @@
 //use dayjs to get the time and date
-import { addToCart, cart } from "../data/cart.js";
+import { addToCart } from "../data/cart.js";
 import { products, loadProductsFetch } from "../data/products.js";
 
 document.querySelector(".js-cart-quantity").innerText =
@@ -43,7 +43,8 @@ function loadPage() {
 
                     <div class="product-spacer"></div>
             
-                    <div class="added-to-cart">
+                    <div class="added-to-cart
+                      js-added-to-cart-${product.id}">
                         <img src="images/icons/checkmark.png">
                         Added
                     </div>
@@ -59,9 +60,20 @@ function loadPage() {
   });
 
   document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
-    let itemId = button.dataset.buttonId;
+    let { buttonId } = button.dataset;
+    let timeoutId = null;
     button.addEventListener("click", () => {
-      addToCart(itemId);
+      const element = document.querySelector(`.js-added-to-cart-${buttonId}`);
+      element.classList.add("added-product");
+
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        element.classList.remove("added-product");
+      }, 2000);
+
+      addToCart(buttonId);
       document.querySelector(".js-cart-quantity").innerText = addToCart();
     });
   });
@@ -84,4 +96,3 @@ function selectQuantity(productId) {
     `;
   document.querySelector(`.js-quantity-select-${productId}`).innerHTML = html;
 }
-

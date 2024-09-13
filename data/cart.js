@@ -1,4 +1,3 @@
-import { deliveryOptions } from "./deliveryOptions.js";
 import { products } from "./products.js";
 
 //declaring cart array and
@@ -132,7 +131,7 @@ export function saveToStorage() {
   localStorage.setItem("cartItems", JSON.stringify(cart));
 }
 
-function getQuantity(productId) {
+export function getQuantity(productId) {
   const quantityValue = document.querySelector(
     `.js-quantity-select-${productId}`
   ).value;
