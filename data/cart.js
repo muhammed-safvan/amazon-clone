@@ -69,20 +69,10 @@ export function addToCart(itemId) {
     }
     
     //updateCart('totalCart');
-    updateCart('cartItems');
+    saveToStorage();
   
     return totalCart;
     
-}
-
-function updateCart(updateType){
-    switch(updateType){
-        case 'cartItems' :localStorage.setItem('cartItems',JSON.stringify(cart))
-        break;
-        case 'totalCart':localStorage.setItem('totalCart',JSON.stringify(totalCart))
-        break;   
-        
-    }
 }
 
 export function removeFromCart(productId){
@@ -95,7 +85,7 @@ export function removeFromCart(productId){
     cart = newCart;
 
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
-    updateCart('cartItems');
+    saveToStorage();
 }
 
 export function updateDeliveryOption(productId,deliveryOptionId){
@@ -109,7 +99,7 @@ export function updateDeliveryOption(productId,deliveryOptionId){
     });
 
     matchingProduct.deliveryOptionId = deliveryOptionId;
-    updateCart('cartItems');
+    saveToStorage();
 
 }
 
@@ -140,3 +130,8 @@ export function loadCart (fun){
     xhr.send();
     
   }
+
+  
+export function saveToStorage(){
+    localStorage.setItem('cartItems',JSON.stringify(cart))
+}
