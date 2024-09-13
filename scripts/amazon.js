@@ -1,7 +1,6 @@
 //use dayjs to get the time and date
-import { addToCart,saveToStorage } from "../data/cart.js";
-import { products, loadProductsFetch,getProduct } from "../data/products.js";
-
+import { addToCart, cart } from "../data/cart.js";
+import { products, loadProductsFetch } from "../data/products.js";
 
 document.querySelector(".js-cart-quantity").innerText =
   localStorage.getItem("totalCart") || 0;
@@ -62,9 +61,6 @@ function loadPage() {
   document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
     let itemId = button.dataset.buttonId;
     button.addEventListener("click", () => {
-      const matchingProduct = getProduct(itemId);
-      matchingProduct.quantity = Number(getQuantity(itemId));
-      saveToStorage();
       addToCart(itemId);
       document.querySelector(".js-cart-quantity").innerText = addToCart();
     });
@@ -87,9 +83,5 @@ function selectQuantity(productId) {
         <option value="10">10</option>
     `;
   document.querySelector(`.js-quantity-select-${productId}`).innerHTML = html;
+}
 
-}
-function getQuantity(productId){
-    const quantityValue = document.querySelector(`.js-quantity-select-${productId}`).value;
-    return quantityValue;
-}
