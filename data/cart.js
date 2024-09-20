@@ -1,4 +1,4 @@
-import { products } from "./products.js";
+import { products, getProduct } from "./products.js";
 
 //declaring cart array and
 export let cart;
@@ -36,7 +36,6 @@ export function loadFromStorage() {
   }
 }
 
-
 export function addToCart(itemId) {
   let totalCart = 0;
   let productExist = false;
@@ -73,7 +72,6 @@ export function addToCart(itemId) {
   saveToStorage();
   return totalCart;
 }
-
 
 export function removeFromCart(productId) {
   const newCart = [];
@@ -138,3 +136,20 @@ export function getQuantity(productId) {
   console.log(quantityValue);
   return Number(quantityValue);
 }
+
+export function updateQuantity(productId, newQuantity) {
+  const product = getProduct(productId);
+
+  cart.forEach((cartItem) => {
+    let matchingCart;
+    if (cartItem.id === productId) {
+      matchingCart = cartItem;
+
+      if (newQuantity % 1 === 0 && newQuantity > 0 && newQuantity < 1000) {
+        cartItem.quantity = newQuantity;
+        saveToStorage();
+      }
+    }
+  });
+}
+

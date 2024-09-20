@@ -3,7 +3,7 @@ import { addToCart } from "../data/cart.js";
 import { products, loadProductsFetch } from "../data/products.js";
 
 document.querySelector(".js-cart-quantity").innerText =
-  localStorage.getItem("totalCart") || 0;
+  localStorage.getItem("totalCart") || '';
 loadProductsFetch().then(() => {
   loadPage();
 });

@@ -1,6 +1,6 @@
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { convertMoney } from "../utils/money.js";
-import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
+import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from "../../data/cart.js";
 import {
   deliveryOptions,
   getDeliveryOption,
@@ -45,8 +45,22 @@ export function renderOrderSummary() {
                         product.quantity
                       }</span>
                     </span>
-                    <span class="update-quantity-link link-primary">
+                    <span class="update-quantity-link
+                      js-update-quantity-link 
+                      link-primary
+                      js-update-quantity-${matchingProduct.id}"
+                      data-product-id="${matchingProduct.id}">
                       Update
+                    </span>
+                    <input type = "number" 
+                      value = "1" min = "1"
+                      class="quantity-input 
+                      js-quantity-input-${matchingProduct.id}">
+                    <span class="save-quantity-link link-primary
+                      js-save-quantity-link
+                      js-save-quantity-${matchingProduct.id}"
+                      data-product-id="${matchingProduct.id}">
+                    Save
                     </span>
                     <span class="delete-quantity-link link-primary
                       js-delete-button
@@ -155,7 +169,7 @@ export function renderOrderSummary() {
 
   function updateQuantityHtml() {
     let quantity = 0;
-    cart.forEach(cartItem => {
+    cart.forEach((cartItem) => {
       quantity += cartItem.quantity;
     });
     document.querySelector(
@@ -163,4 +177,39 @@ export function renderOrderSummary() {
     ).innerHTML = `${quantity} items`;
   }
 
+  document.querySelectorAll('.js-update-quantity-link')
+    .forEach(link => {
+      const {productId} = link.dataset;
+      link.addEventListener("click",() => {
+        const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
+        const saveElement = document.querySelector(`.js-save-quantity-${productId}`);
+        const updateElement = document.querySelector(`.js-update-quantity-${productId}`);
+        inputElement.classList.add('is-editing-quantity');
+        saveElement.classList.add('is-editing-quantity');
+        updateElement.style.display='none';
+        
+        inputElement.addEventListener('input', () => {
+          if (inputElement.value < 1) {
+            inputElement.value = 1; // Reset to 1 if input is less than 1
+            inputElement.value = Math.floor(parseFloat(inputElement.value)); // Reset to the nearest whole number
+          }
+        });
+      });
+  });
+
+  document.querySelectorAll('.js-save-quantity-link')
+    .forEach(link => {
+      const {productId} = link.dataset;
+      link.addEventListener("click",() => {
+        const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
+        const saveElement = document.querySelector(`.js-save-quantity-${productId}`);
+        const updateElement = document.querySelector(`.js-update-quantity-${productId}`);
+        inputElement.classList.remove('is-editing-quantity');
+        saveElement.classList.remove('is-editing-quantity');
+        const newQuantity = +(inputElement.value);
+        updateElement.style.display='initial';
+        updateQuantity(productId,newQuantity);       
+      });
+    });
 }
+
