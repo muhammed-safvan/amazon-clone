@@ -2,31 +2,29 @@ import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { convertMoney } from "../utils/money.js";
-import { getOrder} from "../orders/renderOrders.js";
+import { getOrder } from "../orders/renderOrders.js";
 
+export function renderPaymentSummary() {
+  let productPriceCents = 0;
+  let shippingPriceCents = 0;
 
-export function renderPaymentSummary(){
-    let productPriceCents=0;
-    let shippingPriceCents=0;
+  cart.forEach((cartItem) => {
+    const product = getProduct(cartItem.id);
+    productPriceCents += product.priceCents * cartItem.quantity;
 
-    cart.forEach((cartItem)=>{
-        const product = getProduct(cartItem.id);
-        productPriceCents += (product.priceCents*cartItem.quantity);
+    const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
+    if (deliveryOption.priceCents > shippingPriceCents) {
+      shippingPriceCents += deliveryOption.priceCents;
+    }
+  });
+  console.log(productPriceCents);
+  console.log(shippingPriceCents);
 
-        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
-        shippingPriceCents += deliveryOption.priceCents;
-        
+  const totalBeforeTaxCents = shippingPriceCents + productPriceCents;
+  const taxCents = totalBeforeTaxCents * 0.1;
+  const totalAfterTaxCents = taxCents + totalBeforeTaxCents;
 
-    });
-    console.log(productPriceCents);
-    console.log(shippingPriceCents);
-
-    const totalBeforeTaxCents = shippingPriceCents + productPriceCents;
-    const taxCents = totalBeforeTaxCents * 0.1;
-    const totalAfterTaxCents = taxCents + totalBeforeTaxCents;
-
-    const paymentSummaryHTML = 
-    `
+  const paymentSummaryHTML = `
         <div class="payment-summary-title">
             Order Summary
           </div>
@@ -71,12 +69,10 @@ export function renderPaymentSummary(){
             Place your order
           </button>
     
-    `
-  document.querySelector('.js-payment-summary')
-    .innerHTML = paymentSummaryHTML;
-    document.querySelector('.js-place-order')
-      .addEventListener('click',() => {
-        getOrder(cart)
-        window.location.href = "orders.html";
-      });
+    `;
+  document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHTML;
+  document.querySelector(".js-place-order").addEventListener("click", () => {
+    getOrder(cart);
+    window.location.href = "orders.html";
+  });
 }
