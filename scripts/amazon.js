@@ -7,6 +7,7 @@ document.querySelector(".js-cart-quantity").innerText =
 loadProductsFetch().then(() => {
   loadPage();
 });
+
 function loadPage() {
   products.forEach((product) => {
     document.querySelector(".js-product-grid").innerHTML += `
@@ -96,3 +97,4 @@ function selectQuantity(productId) {
     `;
   document.querySelector(`.js-quantity-select-${productId}`).innerHTML = html;
 }
+

@@ -137,8 +137,9 @@ export function getQuantity(productId) {
   return Number(quantityValue);
 }
 
+
 export function updateQuantity(productId, newQuantity) {
-  const product = getProduct(productId);
+  //const product = getProduct(productId);
 
   cart.forEach((cartItem) => {
     let matchingCart;
@@ -152,4 +153,31 @@ export function updateQuantity(productId, newQuantity) {
     }
   });
 }
+
+export function showQuantityHtml(productId){
+  let matchingCartItem;
+
+  cart.forEach((cartItem) => {
+
+    if(productId === cartItem.id){
+      matchingCartItem = cartItem;
+    }
+  });
+  document.querySelector('.js-quantity-label')
+  .innerText = matchingCartItem.quantity;
+
+  document.querySelector('.js-return-to-home-link')
+  .innerText =` ${getTotalCartQuantity()} Items`;
+}
+
+function getTotalCartQuantity(){
+let totalCart = 0;
+  cart.forEach((cartItem) => {
+
+    totalCart += cartItem.quantity;
+  });
+  return totalCart;
+}
+
+
 

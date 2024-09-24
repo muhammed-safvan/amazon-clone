@@ -1,6 +1,6 @@
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { convertMoney } from "../utils/money.js";
-import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from "../../data/cart.js";
+import { cart, removeFromCart, showQuantityHtml, updateDeliveryOption, updateQuantity } from "../../data/cart.js";
 import {
   deliveryOptions,
   getDeliveryOption,
@@ -41,7 +41,8 @@ export function renderOrderSummary() {
                   <div class="product-quantity
                     js-product-quantity-${matchingProduct.id}">
                     <span>
-                      Quantity: <span class="quantity-label">${
+                      Quantity: <span class="quantity-label
+                      js-quantity-label">${
                         product.quantity
                       }</span>
                     </span>
@@ -208,7 +209,8 @@ export function renderOrderSummary() {
         saveElement.classList.remove('is-editing-quantity');
         const newQuantity = +(inputElement.value);
         updateElement.style.display='initial';
-        updateQuantity(productId,newQuantity);       
+        updateQuantity(productId,newQuantity);
+        showQuantityHtml(productId)       
       });
     });
 }
