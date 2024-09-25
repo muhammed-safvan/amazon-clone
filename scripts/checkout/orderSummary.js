@@ -191,13 +191,27 @@ export function renderOrderSummary() {
         
         inputElement.addEventListener('input', () => {
           if (inputElement.value < 1) {
-            inputElement.value = 1; // Reset to 1 if input is less than 1
-            inputElement.value = Math.floor(parseFloat(inputElement.value)); // Reset to the nearest whole number
+            //inputElement.value = 1; // Reset to 1 if input is less than 1
+            inputElement.value = Math.floor(parseFloat(inputElement.value)); // Reset to the nearest whole number 
+          }
+        });
+
+        inputElement.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter'){
+            const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
+            const saveElement = document.querySelector(`.js-save-quantity-${productId}`);
+            const updateElement = document.querySelector(`.js-update-quantity-${productId}`);
+            inputElement.classList.remove('is-editing-quantity');
+            saveElement.classList.remove('is-editing-quantity');
+            const newQuantity = +(inputElement.value);
+            updateElement.style.display='initial';
+            updateQuantity(productId,newQuantity);
+            showQuantityHtml(productId); 
           }
         });
       });
   });
-
+  
   document.querySelectorAll('.js-save-quantity-link')
     .forEach(link => {
       const {productId} = link.dataset;
