@@ -1,9 +1,9 @@
-import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { convertMoney } from "../utils/money.js";
 import { cart, removeFromCart, showQuantityHtml, updateDeliveryOption, updateQuantity } from "../../data/cart.js";
 import {
   deliveryOptions,
   getDeliveryOption,
+  calculateDeliveryDate
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { getProduct } from "../../data/products.js";
@@ -15,16 +15,16 @@ export function renderOrderSummary() {
     const deliveryOption = getDeliveryOption(deliveryOptionId);
     const matchingProduct = getProduct(product.id);
 
-    const today = dayjs();
-    const deliveryDate = today.add(`${deliveryOption.deliveryDays}`, "days");
-    const dateString = deliveryDate.format("dddd, MMMM D");
+    // const today = dayjs();
+    // const deliveryDate = today.add(`${deliveryOption.deliveryDays}`, "days");
+    // const dateString = deliveryDate.format("dddd, MMMM D");
 
     const cartHTML = `
     <div class="cart-item-container 
               js-cart-item-container
               js-cart-item-container-${matchingProduct.id}">
               <div class="delivery-date">
-                Delivery date: ${dateString}
+                Delivery date: ${calculateDeliveryDate(deliveryOption)} days
               </div>
 
               <div class="cart-item-details-grid">
@@ -98,10 +98,7 @@ export function renderOrderSummary() {
           ? "FREE "
           : `${convertMoney(deliveryOption.priceCents)} -`;
 
-      const today = dayjs();
-      const deliveryDate = today.add(`${deliveryOption.deliveryDays}`, "days");
 
-      const dateString = deliveryDate.format("dddd, MMMM D");
 
       const isChecked = deliveryOption.id === product.deliveryOptionId;
       html += `
@@ -114,7 +111,7 @@ export function renderOrderSummary() {
                 name="delivery-option-${product.id}">
               <div>
                 <div class="delivery-option-date">
-                  ${dateString}
+                  ${calculateDeliveryDate(deliveryOption)}
                 </div>
                 <div class="delivery-option-price">
                   ${priceString} Shipping
@@ -228,4 +225,5 @@ export function renderOrderSummary() {
       });
     });
 }
+
 

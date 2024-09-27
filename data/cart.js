@@ -168,9 +168,12 @@ export function showQuantityHtml(productId){
 
   document.querySelector('.js-return-to-home-link')
   .innerText =` ${getTotalCartQuantity()} Items`;
+
+    document.querySelector(".js-items-container")
+    .innerHTML = `Items (${getTotalCartQuantity()})`;
 }
 
-function getTotalCartQuantity(){
+export function getTotalCartQuantity(){
 let totalCart = 0;
   cart.forEach((cartItem) => {
 
