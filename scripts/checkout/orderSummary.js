@@ -24,7 +24,7 @@ export function renderOrderSummary() {
               js-cart-item-container
               js-cart-item-container-${matchingProduct.id}">
               <div class="delivery-date">
-                Delivery date: ${calculateDeliveryDate(deliveryOption)} days
+                Delivery date: ${calculateDeliveryDate(deliveryOption)}
               </div>
 
               <div class="cart-item-details-grid">
